@@ -4,7 +4,7 @@ import com.space.model.Ship;
 import com.space.service.CosmoportService;
 import com.space.service.ShipCriteriaBuilder;
 
-import com.space.service.utils.UtilValidatorsServis;
+import com.space.service.utils.UtilValidatorsServise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ import java.util.Map;
 public class ShipRestController {
 
     //Сервис валидаторов
-    private UtilValidatorsServis validatorsServise;
+    private UtilValidatorsServise validatorsServise;
 
     //Сервис доступа к БД
     private CosmoportService cosmoport;
@@ -185,7 +185,7 @@ public class ShipRestController {
     }
 
     @Autowired
-    public void setValidatorsServise(UtilValidatorsServis validatorsServise) {
+    public void setValidatorsServise(UtilValidatorsServise validatorsServise) {
         this.validatorsServise = validatorsServise;
     }
 }

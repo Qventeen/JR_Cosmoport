@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-
+/**
+ * Валидация скорости корабля согласно свойствам приложения
+ */
 @Component
 public class ShipSpeedValidator implements Validator {
 

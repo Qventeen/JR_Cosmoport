@@ -9,6 +9,9 @@ import org.springframework.validation.Validator;
 
 import java.util.Calendar;
 
+/**
+ * Валидация даты производства корабля согласно свойствам приложения
+ */
 @Component
 public class ShipProdDatetValidator implements Validator {
 

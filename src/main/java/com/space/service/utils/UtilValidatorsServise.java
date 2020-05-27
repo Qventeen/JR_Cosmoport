@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.DataBinder;
 
-
+/**
+ * Даный сервис предоставляе услуги валидации информации о кораблях
+ */
 @Service
-public class UtilValidatorsServis {
+public class UtilValidatorsServise {
     private IdValidator idValidator;
     private NullShipValidator nullShipValidator;
     private ShipCrewValidator shipCrewValidator;
@@ -18,14 +20,19 @@ public class UtilValidatorsServis {
     private ShipProdDatetValidator shipProdDateValidator;
     private ShipSpeedValidator shipSpeedValidator;
 
-
+    /**
+     * Выполняет валидацию параметров корабля согласно свойствам приложения
+     * @param ship - корабль подлежащий валидации
+     * @return - результат валидации
+     */
     public boolean newShipValidation(Ship ship){
         DataBinder db = new DataBinder(ship);
-        //Устанавливаем первый валидатор
+
+        //Выполняем первый этап валидации
         db.setValidator(nullShipValidator);
         db.validate();
 
-        //Если проверка выполняем следующий этап валидации
+        //Если проверка процдена выполняем следующий этап валидации
         if(!db.getBindingResult().hasErrors()){
             db.replaceValidators(
                     shipNameValidator,
@@ -37,6 +44,7 @@ public class UtilValidatorsServis {
             db.validate();
         }
 
+        //Если все ок возвращаем подтверждение
         if(!db.getBindingResult().hasErrors()){
             return true;
         }
@@ -46,6 +54,12 @@ public class UtilValidatorsServis {
         return false;
     }
 
+    /**
+     * Выполняет валидацию переданного числа на предмет корректности использования
+     * в качестве идентификатора в БД
+     * @param id предположительный идентификатор
+     * @return результат валидации
+     */
     public boolean idValidation(Long id){
         DataBinder db = new DataBinder(id);
         db.setValidator(idValidator);
@@ -55,10 +69,15 @@ public class UtilValidatorsServis {
                     .forEach(System.err::println);
             return false;
         }
-
             return true;
     }
 
+    /**
+     * Выполняет валидацию свойст корабля на предмет корректности
+     * параметров для обновления информации о корабле в БД
+     * @param ship модель корабля для валидации
+     * @return результат валидации
+     */
     public boolean updateShipValidation(Ship ship){
         //Добавляем валидаторы по мере нахождения непустых полей
         DataBinder db = new DataBinder(ship);
@@ -68,20 +87,20 @@ public class UtilValidatorsServis {
         if(ship.getSpeed() != null) db.addValidators(shipSpeedValidator);
         if(ship.getCrewSize() != null) db.addValidators(shipCrewValidator);
 
+        //Непосредственно валидация
         db.validate();
-        //Если после валидации найдены ошибки выводим в поток ошибок
-        if(db.getBindingResult().hasErrors()) {
-            db.getBindingResult()
-                    .getAllErrors()
-                    .forEach(System.err::println);
-           return false;
+
+        //Если все ок возвращаем подтверждение
+        if(!db.getBindingResult().hasErrors()){
+            return true;
         }
 
-        //Валидация пройдена на отлично
-        return true;
+        //В случае нахождения ошибок выводим их в консоль ошибок
+        db.getBindingResult().getAllErrors().forEach(System.err::println);
+        return false;
     }
 
-    //Инициализация валидаторов
+    //Внедрение зависимостей
 
     @Autowired
     public void setIdValidator(IdValidator idValidator) {

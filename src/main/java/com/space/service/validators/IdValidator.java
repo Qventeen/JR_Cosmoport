@@ -4,6 +4,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+/**
+ * Валидатор для валидации полученного ID
+ */
 @Component
 public class IdValidator implements Validator {
     @Override

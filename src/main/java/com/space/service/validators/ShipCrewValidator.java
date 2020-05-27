@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-
+/**
+ * Валидация размера экипажа корабля согласно свойствам приложения
+ */
 @Component
 public class ShipCrewValidator implements Validator {
 

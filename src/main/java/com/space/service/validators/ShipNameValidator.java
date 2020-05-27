@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+/**
+ * Валидация корректноити имени корабля согласно свойствам приложения
+ */
 @Component
 public class ShipNameValidator implements Validator {
 

@@ -7,15 +7,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-
+/**
+ * Валидатор проверяющий корабль на отсутствующие параметры
+ */
 @Component
 public class NullShipValidator implements Validator {
-    private ShipProperty pr;
-
-    @Autowired
-    public NullShipValidator(ShipProperty pr) {
-        this.pr = pr;
-    }
 
     @Override
     public boolean supports(Class<?> clazz) {
