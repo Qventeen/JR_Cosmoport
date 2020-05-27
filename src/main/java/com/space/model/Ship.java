@@ -2,7 +2,7 @@ package com.space.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 
 @Entity
@@ -15,6 +15,7 @@ public class Ship implements Serializable {
     private String planet;
     @Enumerated(EnumType.STRING)
     private ShipType shipType;
+    @Temporal(TemporalType.DATE)
     private Date prodDate;
     private Boolean isUsed;
     private Double speed;
