@@ -11,7 +11,7 @@ import org.springframework.validation.DataBinder;
  * Даный сервис предоставляе услуги валидации информации о кораблях
  */
 @Service
-public class UtilValidatorsServise {
+public class UtilValidatorsService {
     private IdValidator idValidator;
     private NullShipValidator nullShipValidator;
     private ShipCrewValidator shipCrewValidator;
