@@ -6,6 +6,11 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 
+/**
+ * Интерфейс представляющий сервисный слой для работы
+ * с репозиторием. Выполняет бизнес логику перед передачей
+ * информации в БД
+ */
 public interface CosmoportService {
 
     /**

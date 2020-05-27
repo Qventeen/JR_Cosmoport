@@ -16,12 +16,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
+/**
+ * Реализация интерфейса CosmoportService
+ */
 @Service
 @Transactional
 public class CosmoportServiceImpl implements CosmoportService {
 
     private CosmoportRepository repository;
+
+    //Утильный класс инкапсулирующий в себе необходимую бизнес логику
     private UtilShipService utilShipService;
 
     @Override
@@ -53,17 +57,15 @@ public class CosmoportServiceImpl implements CosmoportService {
     }
 
     @Override
-    @Transactional
     public Ship createShip(Ship ship) {
         //Выполняем операции округления и расчета рейтинга
-        ship = utilShipService.shipAddCorrection(ship);
+        ship = utilShipService.shipPreparing(ship);
 
         //Сохраняем результаты в бд
         return repository.save(ship);
     }
 
     @Override
-    @Transactional
     public Ship updateShip(Ship ship) {
         //Если Id для обновления корабля в БД найден
         if(!repository.existsById(ship.getId()))
@@ -72,8 +74,9 @@ public class CosmoportServiceImpl implements CosmoportService {
         //Достаем этот корабль
         Ship oldShip = repository.getOne(ship.getId());
 
-        //Объеденяем старые параметры с новыми попутно ппересчитываем рейтинг и пр.
+        //Выполняем редактирование корабля
         ship = utilShipService.shipMerge(oldShip, ship);
+
         //Записываем обновленный результат в БД
         ship = repository.save(ship);
 
@@ -82,7 +85,6 @@ public class CosmoportServiceImpl implements CosmoportService {
     }
 
     @Override
-    @Transactional
     public boolean deleteShip(Long id) {
         //Если такого элемента в БД нет
         if(!repository.existsById(id))
@@ -92,6 +94,9 @@ public class CosmoportServiceImpl implements CosmoportService {
         repository.deleteById(id);
         return true;
     }
+
+
+    //Внедрение зависимостей
 
     @Autowired
     public void setUtilShipService(UtilShipService utilShipService) {
